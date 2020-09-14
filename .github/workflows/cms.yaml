@@ -30,7 +30,7 @@ jobs:
             ./ngrok authtoken "$NGROK_TOKEN"
             ./ngrok http 8000 --log stdout --log-format json > /tmp/ngrok.log 2>&1 &
             sleep 3s
-            cat /tmp/ngrok.log
+            jq .url /tmp/ngrok.log
             echo "Visit one of these URLs. When you're done, go to /staticify; then cancel this job"
             sleep 1h
         env:
