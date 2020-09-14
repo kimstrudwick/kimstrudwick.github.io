@@ -1,0 +1,42 @@
+name: CMS runner
+on: [workflow_dispatch]
+
+jobs:
+  cms:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install python
+        uses: "actions/setup-python@v2"
+        with:
+          python-version: "3.8"
+      - name: "Install dependencies"
+        run: |
+          set -xe
+          python -m pip install --upgrade pip
+          python -m venv venv
+          venv/bin/pip install --progress-bar=off --requirement requirements.txt
+      - name: Start server
+        run: |
+          source ${{ github.workspace }}/venv/bin/activate
+          ./manage.py runserver &
+      - name: Set up ngrok tunnel
+        run: |
+            set -xe
+            wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip
+            unzip -f ngrok-stable-linux-386.zip
+            chmod +x ./ngrok
+            ./ngrok authtoken "$NGROK_TOKEN"
+            ./ngrok http 8000 --log stdout --log-format json > /tmp/ngrok.log 2>&1 &
+            sleep 3s
+            jq .url /tmp/ngrok.log
+            echo "Visit one of these URLs. When you're done, go to /staticify; then cancel this job"
+            sleep 1h
+        env:
+            # After sign up on the https://ngrok.com/
+            # You can find this token here: https://dashboard.ngrok.com/get-started/setup
+            # NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
+            NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
+
+
