@@ -26,6 +26,7 @@ urlpatterns = [
     path("", views.projects, name="index"),
     path("projects/", views.projects, name="projects"),
     path("projects/<int:project_id>", views.project, name="project"),
+    path("staticify/", views.staticify, name="staticify"),
     path("admin/", admin.site.urls),
     path("markdownx/", include(markdownx)),
 ]
