@@ -1,2 +1,5 @@
 db.sqlite3
 .python-version
+generated_static
+__pycache__
+*pyc

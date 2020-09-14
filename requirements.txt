@@ -5,6 +5,9 @@
 #    pip-compile
 #
 asgiref==3.2.10           # via django
-django==3.1.1             # via -r requirements.in
+django-markdownx==3.0.1   # via -r requirements.in
+django==3.1.1             # via -r requirements.in, django-markdownx
+markdown==3.2.2           # via django-markdownx
+pillow==7.2.0             # via django-markdownx
 pytz==2020.1              # via django
 sqlparse==0.3.1           # via django

@@ -13,9 +13,26 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path, re_path
+from django.views.static import serve
+
+from markdownx import urls as markdownx
+
+from frontend import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("", views.projects, name="index"),
+    path("projects/", views.projects, name="projects"),
+    path("projects/<int:project_id>", views.project, name="project"),
+    path("admin/", admin.site.urls),
+    path("markdownx/", include(markdownx)),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [
+        re_path(
+            r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT,}
+        ),
+    ]
