@@ -5,9 +5,17 @@
 #    pip-compile
 #
 asgiref==3.2.10           # via django
+dj-database-url==0.5.0    # via django-heroku
+django-heroku==0.3.1      # via -r requirements.in
 django-markdownx==3.0.1   # via -r requirements.in
-django==3.1.1             # via -r requirements.in, django-markdownx
+django==3.1.1             # via -r requirements.in, django-heroku, django-markdownx
+gunicorn==20.0.4          # via -r requirements.in
 markdown==3.2.2           # via django-markdownx
-pillow==7.2.0             # via django-markdownx
+pillow==7.2.0             # via -r requirements.in, django-markdownx
+psycopg2==2.8.6           # via django-heroku
 pytz==2020.1              # via django
 sqlparse==0.3.1           # via django
+whitenoise==5.2.0         # via django-heroku
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools

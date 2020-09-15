@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import django_heroku
 
 from pathlib import Path
 
@@ -118,3 +119,6 @@ STATIC_URL = "/static/"
 # Full path to a directory where we should store images
 MEDIA_ROOT = BASE_DIR
 MEDIA_URL = "/media/"
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
