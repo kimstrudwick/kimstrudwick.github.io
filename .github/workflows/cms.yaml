@@ -28,12 +28,13 @@ jobs:
             unzip ngrok-stable-linux-386.zip
             chmod +x ./ngrok
             ./ngrok authtoken "$NGROK_TOKEN"
-            ./ngrok http 8000 --log stdout --log-format json > /tmp/ngrok.log 2>&1 &
+            ./ngrok http -auth="kimstrudwick:$PASSWORD" --log stdout --log-format json  8000 > /tmp/ngrok.log 2>&1 &
             sleep 3s
             jq .url /tmp/ngrok.log
             echo "Visit one of these URLs. When you're done, go to /staticify; then cancel this job"
             sleep 1h
         env:
+            PASSWORD: ${{ secrets.PASSWORD }}
             # After sign up on the https://ngrok.com/
             # You can find this token here: https://dashboard.ngrok.com/get-started/setup
             # NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
