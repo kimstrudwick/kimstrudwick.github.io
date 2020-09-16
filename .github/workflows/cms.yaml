@@ -1,5 +1,11 @@
 name: CMS runner
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      heroku_domain:
+        description: 'Heroku domain to grab'
+        required: true
+        default: 'fast-gorge-49964.herokuapp.com'
 
 jobs:
   cms:
@@ -7,37 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Install python
-        uses: "actions/setup-python@v2"
-        with:
-          python-version: "3.8"
-      - name: "Install dependencies"
+      - name: Wget from Heroku
         run: |
-          set -xe
-          python -m pip install --upgrade pip
-          python -m venv venv
-          venv/bin/pip install --progress-bar=off --requirement requirements.txt
-      - name: Start server
-        run: |
-          source ${{ github.workspace }}/venv/bin/activate
-          ./manage.py runserver &
-      - name: Set up ngrok tunnel
-        run: |
-            set -xe
-            wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip
-            unzip ngrok-stable-linux-386.zip
-            chmod +x ./ngrok
-            ./ngrok authtoken "$NGROK_TOKEN"
-            ./ngrok http -auth="kimstrudwick:$PASSWORD" --log stdout --log-format json  8000 > /tmp/ngrok.log 2>&1 &
-            sleep 3s
-            jq .url /tmp/ngrok.log
-            echo "Visit one of these URLs. When you're done, go to /staticify; then cancel this job"
-            sleep 1h
-        env:
-            PASSWORD: ${{ secrets.PASSWORD }}
-            # After sign up on the https://ngrok.com/
-            # You can find this token here: https://dashboard.ngrok.com/get-started/setup
-            # NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
-            NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
-
-
+          wget --no-host-directories --directory-prefix=. --mirror --convert-links --html-extension ${{ github.event.inputs.heroku_domain }}
+      - name: Commit back to repo
+        uses: EndBug/add-and-commit@v4
