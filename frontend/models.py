@@ -27,3 +27,12 @@ class ProjectImage(models.Model):
 
     def __str__(self):
         return f"{self.project.title}: {self.title}"
+
+
+class Snippet(models.Model):
+    slug = models.SlugField(primary_key=True)
+    text = MarkdownxField()
+
+    def __str__(self):
+        return self.slug
+

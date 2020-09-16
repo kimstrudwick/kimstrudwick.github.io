@@ -90,12 +90,11 @@
     {% include "_header.html" %}
 
     <main role="main">
-        <section class="jumbotron">
-            <div class="container">
-                <h1>{% block lead_text_header %}{% endblock %}</h1>
-                <p class="lead text-muted">{% block lead_text %}{% endblock %}</p>
-            </div>
-        </section>
+
+        <div class="container text-center col-md-6">
+            <p class="lead text-muted">{% block lead_text %}{% endblock %}</p>
+        </div>
+
         <div class="album py-5 bg-light">
             <div class="container">
 
