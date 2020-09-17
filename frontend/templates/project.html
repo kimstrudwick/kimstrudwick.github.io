@@ -5,10 +5,11 @@
 
 
 {% block lead_text_header %}
-{{ project.title}}
+
 {% endblock %}
 
 {% block lead_text %}
+<h1>{{ project.title}}</h1>
 <small class="text-muted medium-description">{{ project.medium}} ({{project.date|date:"Y"}})</small>
 
 {{ project.description|show_markdown|safe}}
