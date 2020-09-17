@@ -117,7 +117,7 @@ STATIC_ROOT = BASE_DIR / "generated_static"
 STATIC_URL = "/static/"
 
 # Full path to a directory where we should store images
-MEDIA_ROOT = BASE_DIR
+MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
 
 # Activate Django-Heroku.
