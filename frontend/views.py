@@ -28,23 +28,3 @@ def project(request, project_id):
         request, "project.html", {"project": project, "about_text": _get_about_text()}
     )
 
-
-def staticify(request):
-    result = b""
-    mirror_cmd = [
-        "wget",
-        "--no-host-directories",
-        "--directory-prefix=.",
-        "--mirror",
-        "--convert-links",
-        "--html-extension",
-        "http://localhost:8000",
-    ]
-    result += subprocess.check_output(mirror_cmd)
-    result += b"--------"
-    git_cmd = ["git", "commit", "-am", "Generated static site"]
-    result += subprocess.check_output(git_cmd)
-    git_cmd = ["git", "push"]
-    result += subprocess.check_output(git_cmd)
-    return HttpResponse(result)
-
