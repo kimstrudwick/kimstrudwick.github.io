@@ -5,7 +5,7 @@ on:
       heroku_domain:
         description: 'Heroku domain to grab'
         required: true
-        default: 'fast-gorge-49964.herokuapp.com'
+        default: 'https://fast-gorge-49964.herokuapp.com'
 
 jobs:
   cms:
