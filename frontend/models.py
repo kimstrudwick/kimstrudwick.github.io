@@ -16,6 +16,9 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        order_by = "-date"
+
 
 class ProjectImage(models.Model):
     title = models.CharField(max_length=30)
