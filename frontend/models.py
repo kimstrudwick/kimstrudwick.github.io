@@ -17,7 +17,7 @@ class Project(models.Model):
         return self.title
 
     class Meta:
-        order_by = "-date"
+        ordering = ["-date"]
 
 
 class ProjectImage(models.Model):
