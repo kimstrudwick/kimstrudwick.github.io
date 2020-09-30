@@ -18,6 +18,31 @@
 
 {% block content %}
 
+{% for project_video in project.videos.all %}
+
+<div class="card mb-3"">
+    <div class=" row no-gutters">
+    <div class="col-md-8 embed-responsive embed-responsive-16by9 img-fluid" style=" width:1200px">
+
+        <iframe class="embed-responsive-item " src="https://player.vimeo.com/video/{{ project_video.vimeo_id }}"
+            allow="autoplay; fullscreen" allowfullscreen></iframe>
+
+
+    </div>
+    <div class="col-md-4">
+        <div class="card-body">
+            <h5 class="card-title">{{ project_video.title}}</h5>
+            <p class="card-text">{{ project_video.description|show_markdown|safe}}</p>
+            <p class="card-text"><small class="text-muted">from {{project_video.project.title}}
+                    ({{ project_video.project.date|date:"Y" }})</small></p>
+        </div>
+    </div>
+</div>
+</div>
+<br>
+{% endfor %}
+
+
 {% for project_image in project.images.all %}
 
 <div class="card mb-3"">

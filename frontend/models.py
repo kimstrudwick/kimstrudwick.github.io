@@ -32,6 +32,18 @@ class ProjectImage(models.Model):
         return f"{self.project.title}: {self.title}"
 
 
+class ProjectVideo(models.Model):
+    title = models.CharField(max_length=30)
+    description = MarkdownxField(blank=True)
+    project = models.ForeignKey(
+        Project, related_name="videos", on_delete=models.PROTECT
+    )
+    vimeo_id = models.CharField(max_length=30)
+
+    def __str__(self):
+        return f"{self.project.title}: {self.title}"
+
+
 class Snippet(models.Model):
     slug = models.SlugField(primary_key=True)
     text = MarkdownxField()
